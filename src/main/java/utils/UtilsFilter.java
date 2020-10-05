@@ -26,14 +26,14 @@ public class UtilsFilter {
     {
         List<User> filterUser = new ArrayList<>();
         filterUser.add(users.stream().max((userOne, userTwo) ->
-                Utils.numberComparator(userOne.getAge(), userTwo.getAge())).get());
+                Utils.numberComparator(userOne.getAge(), userTwo.getAge())).orElse(null));
         return filterUser;
     }
     public static List<User> filterByHighestSalary(List<User> users)
     {
         List<User> filterUser = new ArrayList<>();
         filterUser.add(users.stream().max((userOne, userTwo) ->
-                Utils.numberComparator(userOne.getSalary(), userTwo.getSalary())).get());
+                Utils.numberComparator(userOne.getSalary(), userTwo.getSalary())).orElse(null));
         return filterUser;
     }
     public static List<User> filterByAgeRange(List<User> users, int minAge, int maxAge)
