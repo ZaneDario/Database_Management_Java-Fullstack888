@@ -1,5 +1,4 @@
-package app;
-import java.sql.Driver;
+package persistency;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,26 +10,23 @@ public class DatabaseConnector {
                                            String serverName, String portNumber, String database){
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
+            //Class.forName("com.mysql.jdbc.Driver");
             Connection conn;
-            //Properties connectionProps = new Properties();
-            //connectionProps.put("user", userName);
-            //connectionProps.put("password", password);
+            Properties connectionProps = new Properties();
+            connectionProps.put("user", userName);
+            connectionProps.put("password", password);
 
             conn = DriverManager.getConnection("jdbc:mysql" + "://" + serverName +
-                    ":" + portNumber + "/" + database, userName, password);
+                    ":" + portNumber + "/" + database, connectionProps);
 
             System.out.println("Connected to database");
             return conn;
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             System.out.println("ERROR: "+ e.toString());
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("ERROR: "+ e.toString());
-            return null;
-        }
+        } //catch (ClassNotFoundException e) {
+//            System.out.println("ERROR: "+ e.toString());
+//        }
+        return null;
     }
 }

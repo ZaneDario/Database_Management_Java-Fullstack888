@@ -1,12 +1,9 @@
 package utils;
 
 import domain.User;
-import enums.Filter;
-import utils.Utils;
-
+import constants.Constants;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UtilsFilter {
@@ -50,17 +47,17 @@ public class UtilsFilter {
                 user.getSalary() >= minSalary && user.getSalary() <= maxSalary).collect(Collectors.toList());
     }
 
-    public static Filter selectFilter(int input)
+    public static Constants.Filter selectFilter(int input)
     {
         switch (input)
         {
-            case 1: return Filter.name;
-            case 2: return Filter.age;
-            case 3: return Filter.salary;
-            case 4: return Filter.ageRange;
-            case 5: return Filter.salaryRange;
-            case 6: return Filter.highestAge;
-            default: return Filter.highestSalary;
+            case 1: return Constants.Filter.name;
+            case 2: return Constants.Filter.age;
+            case 3: return Constants.Filter.salary;
+            case 4: return Constants.Filter.ageRange;
+            case 5: return Constants.Filter.salaryRange;
+            case 6: return Constants.Filter.highestAge;
+            default: return Constants.Filter.highestSalary;
         }
     }
 

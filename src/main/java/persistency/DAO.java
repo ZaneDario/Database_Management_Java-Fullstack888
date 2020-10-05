@@ -1,18 +1,19 @@
-package app;
+package persistency;
 
+import app.ConsoleMenu;
+import constants.Constants;
 import domain.User;
-import enums.Filter;
 import utils.UtilsFilter;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
+public class DAO {
 
     Connection conn;
-    public Database(String userName, String password,
-                    String serverName, String portNumber, String database){
+    public DAO(String userName, String password,
+               String serverName, String portNumber, String database){
         conn = DatabaseConnector.getConnection(userName,password,serverName,portNumber, database);
     }
 
@@ -26,7 +27,6 @@ public class Database {
             preparedStatement.setFloat(3, salary);
 
             preparedStatement.execute();
-            //conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.toString());
@@ -44,13 +44,12 @@ public class Database {
             preparedStatement.setInt(4, id);
 
             preparedStatement.execute();
-            //conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void filterUser(Filter filter)
+    public void filterUser(Constants.Filter filter)
     {
         List<User> users = new ArrayList<>();
 
@@ -107,7 +106,6 @@ public class Database {
             preparedStatement.setInt(1, id);
 
             preparedStatement.execute();
-            //conn.close();     //TODO When have I to close connections?
         } catch (SQLException e) {
             e.printStackTrace();
         }

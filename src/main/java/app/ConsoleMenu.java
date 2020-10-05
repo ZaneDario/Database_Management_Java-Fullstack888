@@ -1,22 +1,21 @@
 package app;
 
 import domain.User;
+import persistency.DAO;
 import utils.Checker;
 import utils.UtilsFilter;
-
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu {
 
     public static Scanner scanner = new Scanner(System.in);
-    private Database database;
+    private DAO DAO;
 
     public void showMenu()
     {
-        if(database == null)
-        database = new Database("root", "admin",
+        if(DAO == null)
+        DAO = new DAO("root", "admin",
                 "localhost","3306", "database");
 
         int input = askForMenuInput
@@ -40,7 +39,7 @@ public class ConsoleMenu {
                 age = askForInteger("Age: ");
                 salary = askForFloat("Salary: ");
 
-                database.addUser(name, age, salary);
+                DAO.addUser(name, age, salary);
                 break;
 
             case 2:
@@ -49,7 +48,7 @@ public class ConsoleMenu {
                 age = askForInteger("New age: ");
                 salary = askForFloat("New salary: ");
 
-                database.updateUser(id, name, age, salary);
+                DAO.updateUser(id, name, age, salary);
                 break;
 
             case 3:
@@ -57,18 +56,18 @@ public class ConsoleMenu {
                                 "\n3.- Salary. \n4.- Age Range. \n5.- Salary Range" +
                                 "\n6.- Oldest User. \n7.- Highest Salary. \n8.- Back.", 9);
                 if(filterInput != 8){
-                    database.filterUser(UtilsFilter.selectFilter(filterInput));
+                    DAO.filterUser(UtilsFilter.selectFilter(filterInput));
                 }
                 break;
 
             case 4:
                 id = askForInteger("ID of user you want to remove.");
-                database.removeUser(id);
+                DAO.removeUser(id);
                 break;
 
             default:
                 System.out.println("Exiting application.");
-                database.closeConnection();
+                DAO.closeConnection();
                 System.exit(0);
                 break;
         }
@@ -88,8 +87,7 @@ public class ConsoleMenu {
     public static String askForName(String feedback)
     {
         System.out.println(feedback);
-        String name = scanner.nextLine();
-        return name;
+        return scanner.nextLine();
     }
 
     public static int askForInteger(String feedback)
